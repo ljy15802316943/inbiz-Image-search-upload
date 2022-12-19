@@ -10,7 +10,7 @@ interface propsType {
   token:string;//请求koken。
   uploadUrl:string;//上传图片接口地址
   visible: boolean;//显示组件
-  onOk:Function;//上传完成获取图片结果
+  onOk?:Function;//上传完成获取图片结果
   onCancel:Function;//关闭组件回调
   themeColor?: string;//主题色
   style?: any;
@@ -148,7 +148,7 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
       if (res.code==='0') {
         if (res.data&&res.data.length) {
           const data = res.data[0];
-          console.log(data, 'data');
+          props.onOk&&props.onOk(res);
         };
       } else {
         message.error(res.context||'请求失败');
