@@ -2,6 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 // 响应时间
 axios.defaults.timeout = 10000;
+axios.defaults.withCredentials = true;
 
 // 处理请求返回的数据
 function checkStatus(response:any) {

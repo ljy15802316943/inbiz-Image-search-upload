@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Input, message } from "antd";
 import { iconIcDetails, iconUpload, iconClose } from './components/icon';
 import axios from './components/axios';
+import Cookies from 'js-cookie';
 import { LoadingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.min.css';
 import './index.less';
@@ -141,17 +142,13 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
   //上传图片请求
   const onUpload = (url:string, data:any) => {
     setLoad(true);
-    axios.post(url, data, {
-      headers: {'InWise-Token': token}
-    }).then((res:any) => {
+    Cookies.set('token', token);
+    axios.post(url, data).then((res:any) => {
       setLoad(false);
-      if (res.code==='0') {
-        if (res.data&&res.data.length) {
-          const data = res.data[0];
-          props.onOk&&props.onOk(res);
-        };
+      if (res.nResult=='0') {
+        props.onOk&&props.onOk(res);
       } else {
-        message.error(res.context||'请求失败');
+        message.error(res.msg||'请求失败');
       };
     })
   };
