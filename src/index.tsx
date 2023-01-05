@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Input, message } from "antd";
+import { message } from "antd";
 import { iconIcDetails, iconUpload, iconClose } from './components/icon';
 import axios from './components/axios';
 import Cookies from 'js-cookie';
@@ -145,11 +145,7 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
     Cookies.set('token', token);
     axios.post(url, data).then((res:any) => {
       setLoad(false);
-      if (res.nResult=='0') {
-        props.onOk&&props.onOk(res);
-      } else {
-        message.error(res.msg||'请求失败');
-      };
+      props.onOk&&props.onOk(res);
     })
   };
 
