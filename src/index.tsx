@@ -24,7 +24,6 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
     themeColor="#1989fa", 
     token="",
     style={},
-    visible=true,
     uploadUrl="",
   } = props;
   const [uploadErrText, setUploadErrText] = useState<string>('');
@@ -56,11 +55,13 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
 
   useEffect(() => {
     //监听复制上传
-    if (visible) document.addEventListener('paste', onCopyUpload);
+    if (props.visible) {
+      document.addEventListener('paste', onCopyUpload)
+    };
     return () => {
       document.removeEventListener('paste', onCopyUpload);
     };
-  }, [visible]);
+  }, [props.visible]);
 
   //监听拖拽上传
   const onDragUpload = () => {
@@ -141,6 +142,7 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
 
   //上传图片请求
   const onUpload = (url:string, data:any) => {
+    fileupload.current.value = '';
     setLoad(true);
     Cookies.set('token', token);
     axios.post(url, data).then((res:any) => {
@@ -150,7 +152,7 @@ export const InbizImageSearchUpload: React.FC<propsType> = (props) => {
   };
 
   return (
-    <div id="drop_area" className={`uploadBox ${props.className||''}`} style={{...styleColor, display: visible?'block':'none', ...style}}
+    <div id="drop_area" className={`uploadBox ${props.className||''}`} style={{...styleColor, display: props.visible?'block':'none', ...style}}
       onClick={(e)=>{
         e.stopPropagation();
         fileupload.current.click()
