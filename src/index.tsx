@@ -4,7 +4,7 @@ import { iconIcDetails, iconUpload, iconClose } from './components/icon';
 import axios from './components/axios';
 import Cookies from 'js-cookie';
 import { LoadingOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.min.css';
+// import 'antd/dist/antd.min.css';
 import './index.less';
 
 interface propsType {
